@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tornado Chart</title>
+    <style>
+      div{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      div.tooltip {
+        position: absolute;
+        text-align: left;
+        width: auto;
+        padding: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        box-shadow: 0 0 5px #999999;
+        border-radius: 5px;
+        background: white;
+        pointer-events: none;
+        border: 1px solid #999999;
+        color: black;
+      }
+
+      .axisColor line {
+        stroke: transparent;
+      }
+
+      .axisColor path {
+        stroke: transparent;
+      }
+      .axisColor text {
+        font-size: 9px;
+      }
+      .xAxis text {
+        font-size: 9px;
+        font-weight: normal;
+      }
+      text{
+        font-weight: bold;
+      }
+      .button {
+        cursor: pointer;
+      }
+      .catColor { 
+      /* class of rects for yAxis*/
+        opacity: 0.3;
+      }
+      .fa{
+        color: blue;
+        font-size: 20px;
+        padding-left: 10px;
+      }
+      .legend{
+        font-weight: bold;
+      }
+      #treemap .hover {
+        font-size: 0;
+      }
+      .furniture{
+        fill: brown;
+      }
+      .button {
+        cursor: pointer;
+      }
+      #treemap .yAxis path {
+        /* stroke: transparent; */
+        stroke-width: 2px;
+      }
+      #treemap .yAxis{
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+      }
+      .icon{
+        color: blue;
+        font-size: 20px;
+        padding-left: 10px;
+      }
+      .tick line {
+                stroke: #C0C0BB
+      } 
+      #trianglePlot {
+                align-items: center;
+                display: flex;   
+                justify-content: center;
+      }
+      .catselected {
+                font-weight: bold;
+                font-size: larger;
+      }
+      .tooltipimg {
+                height: 120px;
+                padding-right: 10px;
+                
+      }
+      .tooltiptext {
+                float: none;
+      }
+      .info{
+                font-weight: bold;
+      }
+      #buttons {
+          cursor: pointer;
+      }
+      #menu{
+          text-align: center;
+      }
+      .selected {
+          font-weight: bold;
+          fill: red;
+      }
+      .playselected {
+          font-weight: bold;
+          fill: red;
+      }
+      .legendSelected {
+          font-weight: bold;
+          fill: red;
+      }
+      .focus{
+            font-weight: bold;
+            font-size: 18px;
+      }
+      #areaChart{
+          /* Centralize the div and all its properties */
+          text-align: center;
+      }
+        
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Favicons -->
+    <link href="assets/img/faviconG.ico" rel="icon">
+
+  
+  <script src="Tornado.js"></script>
+  <script src="treemap.js"></script>
+  <script src="Aster.js"></script>
+  <script src="scatter plot data.js"></script> 
+  <script src="Stacked Area Data.js"></script>  
+
+  </head>
+  <body>
+    <div style="display: flex;">
+    <div style="justify-content: space-between;">
+    <div class = 'container' style="text-align: center;">
+
+      <h2 style = "color: blue">Cost vs Profit</h2>
+
+      
+      <label style="color: black" for="options1" padding-left="20px">Select: </label> 
+      <select id="options1"></select>
+
+      <select id="options2">
+        <option value="Product Name">Products</option>
+        <option value="Category">Categories</option>
+        <option value="Sub-Category">Sub-Categories</option>
+        <option value="Segment">Segments</option>
+        <option value="City">Cities</option>
+        <option value="State">States</option>
+      </select>
+
+      <br />
+
+      <div id="tornadoChart"></div>
+
+    </div>
+
+    <div class = 'container' style="text-align: center; border: 10px solid transparent">
+      <br>
+      <span style="color:blue"><strong><u>Insights</u></strong></span>
+      <div class = 'container' style="text-align: center; padding-left: 25%;padding-right: 25%; border: 10px solid transparent">
+      <ul style="text-align: left; ">
+        <li>
+          Despite the higher cost of Phones, the Copiers generated the highest profits for the business.
+        </li>
+        <li>
+          The products such as Phones, Chairs, Storage, Machines and Tables incur higher costs than their respective profits.
+        </li>
+        <li>
+          Offering greater discounts for products in the Furniture category could help stimulate sales.         
+        </li>
+      </ul>
+      </div>
+    </div>
+    </div>  
+    <div style="justify-content: space-between;">
+    <div class = 'container' style="text-align: center">
+        <!-- <h3 style="color: #f5b645">Top 10 Cities by Revenue</h3> -->
+        <div>
+          <h2 style="color:blue">Top Locations by Sales Revenue</h2>
+        </div>
+  
+        
+  
+        <!-- #f5b645 -->
+        <label for="menu1" style="color: black">Select: </label>
+        <select id="menu1"></select>
+        <select id="menu2"></select>
+        <label for="menu3" style="color: black"> in </label>
+        <select id="menu3"></select>
+        <label style="color: black"> Category</label>
+        <br />
+        <div id="treemap" style = 'background-color: white'></div>
+    </div>
+  
+    <div class = 'container' style="text-align: center; border: 10px solid transparent">
+        <br>
+        <span style="color:blue"><strong><u>Insights</u></strong></span>
+        <div class = 'container' style="text-align: center; padding-left: 20%;padding-right: 20%; border: 10px solid transparent">
+        <ul style="text-align: left; ">
+          <li>
+            New York City generated the highest revenue of $256 over a four-year period, followed by Los Angeles, Seattle, San Francisco, and Philadelphia.
+          </li>
+          <li>
+            In 2016, Los Angeles overtook New York as the highest revenue-generating city.
+          </li>
+          <li>
+            At the city level, the Canon image class 2200 advanced copier in the Technology category contributed the most to revenue.
+          </li>
+          <li>
+            The High-speed automatic electric letter opener in the Office Supplies category made the most revenue overall at the state level.
+          </li>
+        </ul>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    <div style="display: flex;">
+    <div style="justify-content: space-between;">
+      <div class = 'container' style="text-align: center">
+        <h2  style="color:blue">Profit Share by Segments and Customers</h2>
+  
+        
+  
+        <!-- style="color: #f5b645" -->
+        <label style="color: black" for="menu">Select Category: </label>
+        <select id="menu"></select>
+        <br />
+        <div id="donutchart"></div>
+      </div>
+  
+      <div class = 'container' style="text-align: center; border: 10px solid transparent">
+        <br>
+        <span style="color:blue"><strong><u>Insights</u></strong></span>
+        <div class = 'container' style="text-align: center; padding-left: 20%;padding-right: 20%; border: 10px solid transparent">
+        <ul style="text-align: left; ">
+          <li>
+            The Consumer segment was the most profitable for the business, followed by the Corporate segment., while the Home Office segment was the least profitable. 
+          </li>
+          <li>
+            Within the Corporate segment, the Furniture category accounted for 41% of the market share and generated the highest profits. 
+          </li>
+          <li>
+            In contrast, the Consumer segment made the most profit from both the Office Supply and Technology categories, with market shares of 46% and 49%, respectively.
+          </li>
+        </ul>
+        </div>
+      
+      </div>
+    </div>  
+    <div style="justify-content: space-between;">
+    <div class = 'container' id="Chart2" style="text-align: center">
+        <h2 style="color:blue">Profits vs Sales</h2>
+
+        
+        
+        <label for="levelOptions" style="color: black">Select: </label>
+        <select id="levelOptions"></select>
+        <label style="color: black">  Level</label>
+        <br/>
+
+        <!-- The container for the triangle-shaped scatter plot -->
+        <div id="trianglePlot"></div>
+    </div>
+    <div class = 'container' style="text-align: center; border: 10px solid transparent">
+        <br>
+        <span style="color:blue"><strong><u>Insights</u></strong></span>
+        <div class = 'container' style="text-align: center; padding-left: 20%;padding-right: 20%; border: 10px solid transparent">
+        <ul style="text-align: left; ">
+          <li>
+            Phones in the Technology category generated the highest revenue ($330K) and profits ($44.5K) for the business. 
+          </li>
+          <li>
+            Binders in the Office Supply category had the highest quantity of units sold (5974).
+          </li>
+          <li>
+            Furniture category even though sold more than office supplies but made less profit.
+          </li>
+        </ul>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div id="Chart1" style="text-align: center">
+        <h2 style="color:blue">Monthly Sales by Category</h2>
+
+        
+
+        <label for="yearMenu" style="color: black">Select Year: </label>
+        <select id="yearMenu"></select>
+        <button type="button" id="playYearsButton">Play Years</button>
+        <button type="button" id="BackButton" style= 'visibility:hidden'>Back to Area Chart</button>
+        <div id="areaChart"></div>
+    </div> 
+    <div class = 'container' style="text-align: center; border: 10px solid transparent">
+        <br>
+        <span style="color:blue"><strong><u>Insights</u></strong></span>
+        <div class = 'container' style="text-align: center; padding-left: 20%;padding-right: 20%; border: 10px solid transparent">
+        <ul style="text-align: left; ">
+          <li>
+            The visualization demonstrates that the business experienced three significant spikes in revenue in March, September, and November, followed by retracements in February, April, October, and December.
+          </li>
+          <li>
+            The general trend of the business shows an upward trajectory with an overall profit margin of 12.47%.
+          </li>
+          <li>
+            Additionally, the business made the highest revenue in 2017, with a market share of 37% and a profit margin of 18.65% from the Technology category.
+          </li>
+        </ul>
+        </div>
+      </div> 
+  </body>
+
+</html>
